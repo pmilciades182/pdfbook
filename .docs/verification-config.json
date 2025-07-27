@@ -1,0 +1,95 @@
+{
+  "minTestCoverage": 85,
+  "maxComplexity": 10,
+  "maxLineLength": 120,
+  "excludePatterns": [
+    "node_modules",
+    "dist",
+    ".git",
+    "coverage",
+    "build"
+  ],
+  "requiredDependencies": [
+    "electron",
+    "react",
+    "typescript",
+    "better-sqlite3"
+  ],
+  "codeQuality": {
+    "enableTypeScript": true,
+    "enableLinting": true,
+    "enableFormatting": true,
+    "enforceJSDoc": false,
+    "maxFunctionLength": 50,
+    "maxFileLength": 500
+  },
+  "testingRequirements": {
+    "minCoverage": {
+      "statements": 85,
+      "branches": 70,
+      "functions": 70,
+      "lines": 85
+    },
+    "requiredTestTypes": [
+      "unit",
+      "integration"
+    ],
+    "testFilePatterns": [
+      "*.test.ts",
+      "*.test.tsx",
+      "*.spec.ts",
+      "*.spec.tsx"
+    ]
+  },
+  "buildSystemRequirements": {
+    "requiredScripts": [
+      "dev",
+      "build",
+      "test",
+      "start"
+    ],
+    "optionalScripts": [
+      "lint",
+      "format",
+      "build:linux",
+      "build:deb",
+      "verify"
+    ],
+    "requiredConfigFiles": [
+      "tsconfig.json"
+    ]
+  },
+  "documentationRequirements": {
+    "requiredFiles": [
+      "README.md",
+      ".docs/development-plan.md"
+    ],
+    "optionalFiles": [
+      "CONTRIBUTING.md",
+      "LICENSE",
+      "CHANGELOG.md"
+    ],
+    "minReadmeLength": 1000,
+    "requireInlineComments": true
+  },
+  "gitRequirements": {
+    "minCommits": 5,
+    "requireBranches": false,
+    "commitMessageMinLength": 10,
+    "requireGitignore": true
+  },
+  "phaseTracking": {
+    "strictMode": false,
+    "allowPhaseSkipping": true,
+    "minimumCompletionPercentage": 80,
+    "trackDependencies": true,
+    "trackFiles": true,
+    "trackScripts": true
+  },
+  "reporting": {
+    "saveJSONReport": true,
+    "saveMarkdownSummary": true,
+    "includeDetailedLogs": true,
+    "retainReportsCount": 10
+  }
+}
