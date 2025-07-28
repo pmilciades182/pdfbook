@@ -1,13 +1,20 @@
-import { describe, test, expect, beforeEach } from '@jest/globals';
+import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
 import { ProjectService } from '../../../src/main/services/project-service';
 import { CreateProjectData, UpdateProjectData } from '../../../src/shared/types/database';
+import { TestDatabaseManager } from '../../../src/main/database/test-database-manager';
 
 describe('ProjectService', () => {
   let projectService: ProjectService;
+  let dbManager: TestDatabaseManager;
 
-  beforeEach(() => {
-    const db = global.testUtils.getTestDatabase().getDatabase();
-    projectService = new ProjectService(db);
+  beforeEach(async () => {
+    dbManager = new TestDatabaseManager();
+    await dbManager.initialize();
+    projectService = new ProjectService(dbManager.getDatabase());
+  });
+
+  afterEach(async () => {
+    await dbManager.cleanup();
   });
 
   describe('create', () => {

@@ -135,6 +135,6 @@ describe('TestDatabaseManager', () => {
     // Should throw error when trying to use closed database
     expect(() => {
       dbManager.getDatabase();
-    }).toThrow('Database not initialized');
+    }).toThrow('Test database not initialized. Call initialize() first.');
   });
 });
