@@ -3,10 +3,10 @@ import { beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as os from 'os';
-import { DatabaseManager } from '../src/main/database/database-manager';
+import { TestDatabaseManager } from '../src/main/database/test-database-manager';
 
 // Global test database instance
-let testDbManager: DatabaseManager;
+let testDbManager: TestDatabaseManager;
 let testDbPath: string;
 
 // Setup before all tests
@@ -18,7 +18,7 @@ beforeAll(async () => {
   console.log(`Test database path: ${testDbPath}`);
 
   // Initialize test database
-  testDbManager = new DatabaseManager({
+  testDbManager = new TestDatabaseManager({
     path: testDbPath,
     verbose: false // Set to true for SQL debugging
   });
@@ -29,16 +29,7 @@ beforeAll(async () => {
 // Cleanup after all tests
 afterAll(async () => {
   if (testDbManager) {
-    testDbManager.close();
-  }
-
-  // Clean up test database file
-  if (testDbPath) {
-    try {
-      await fs.remove(path.dirname(testDbPath));
-    } catch (error) {
-      console.error('Failed to cleanup test database:', error);
-    }
+    await testDbManager.cleanup();
   }
 });
 
@@ -157,7 +148,7 @@ async function insertDefaultTestData(): Promise<void> {
 /**
  * Get test database manager
  */
-export function getTestDatabase(): DatabaseManager {
+export function getTestDatabase(): TestDatabaseManager {
   if (!testDbManager) {
     throw new Error('Test database not initialized');
   }

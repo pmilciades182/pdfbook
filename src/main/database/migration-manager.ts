@@ -152,20 +152,12 @@ export class MigrationManager {
           const schemaPath = path.join(__dirname, 'schema.sql');
           const schema = fs.readFileSync(schemaPath, 'utf8');
           
-          // Split by semicolon and execute each statement
-          const statements = schema.split(';').filter(stmt => stmt.trim());
-          
-          for (const statement of statements) {
-            if (statement.trim()) {
-              try {
-                db.exec(statement.trim());
-              } catch (error) {
-                // Skip if table already exists or other non-critical errors
-                if (error instanceof Error && !error.message.includes('already exists')) {
-                  throw error;
-                }
-              }
-            }
+          // Execute the entire schema as one block to avoid issues with semicolons in content
+          try {
+            db.exec(schema);
+          } catch (error) {
+            console.error('Schema execution error:', error);
+            throw error;
           }
         },
         down: (db: Database.Database) => {
