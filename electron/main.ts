@@ -36,9 +36,9 @@ class PDFBookEditorApp {
 
     // Security: Prevent new window creation
     app.on('web-contents-created', (event, contents) => {
-      contents.on('new-window', (event, url) => {
-        event.preventDefault();
+      contents.setWindowOpenHandler(({ url }) => {
         console.log('Blocked new window creation:', url);
+        return { action: 'deny' };
       });
     });
   }
@@ -54,7 +54,6 @@ class PDFBookEditorApp {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        enableRemoteModule: false,
         sandbox: false,
         preload: path.join(__dirname, 'preload.js'),
       },

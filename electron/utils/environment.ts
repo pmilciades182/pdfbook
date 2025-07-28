@@ -1,29 +1,31 @@
-import * as isDev from 'electron-is-dev';
+import * as electronIsDev from 'electron-is-dev';
 
 /**
  * Check if the application is running in development mode
  */
 export function isDevelopment(): boolean {
-  return isDev;
+  return electronIsDev as boolean;
 }
 
 /**
  * Alias for isDevelopment for shorter usage
  */
-export const isDev = isDevelopment;
+export function isDev(): boolean {
+  return isDevelopment();
+}
 
 /**
  * Check if the application is running in production mode
  */
 export function isProduction(): boolean {
-  return !isDev;
+  return !isDev();
 }
 
 /**
  * Get the current environment name
  */
 export function getEnvironment(): 'development' | 'production' {
-  return isDev ? 'development' : 'production';
+  return isDev() ? 'development' : 'production';
 }
 
 /**
@@ -31,11 +33,11 @@ export function getEnvironment(): 'development' | 'production' {
  */
 export function getConfig() {
   return {
-    isDev: isDev,
+    isDev: isDev(),
     isProduction: isProduction(),
     environment: getEnvironment(),
     rendererPort: 3000,
-    logLevel: isDev ? 'debug' : 'error',
-    enableDevTools: isDev,
+    logLevel: isDev() ? 'debug' : 'error',
+    enableDevTools: isDev(),
   };
 }

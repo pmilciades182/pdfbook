@@ -4,7 +4,7 @@
     "target": "ES2020",
     "module": "commonjs",
     "outDir": "../dist/electron",
-    "rootDir": "./",
+    "rootDir": "../",
     "lib": ["ES2020"],
     "types": ["node"],
     "allowSyntheticDefaultImports": true,
@@ -14,16 +14,19 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "../",
     "paths": {
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@main/*": ["src/main/*"]
     }
   },
   "include": [
     "./**/*",
+    "../src/main/**/*",
     "../src/shared/**/*"
   ],
   "exclude": [
     "../node_modules",
     "../dist",
-    "../src/renderer"
+    "../src/renderer",
+    "../tests"
   ]
 }
